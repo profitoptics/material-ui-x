@@ -305,12 +305,7 @@ export const GridRootStyles = styled('div', {
     [`& .${gridClasses.pinnedRow}`]: {
       display: 'flex',
       width: 'fit-content',
-      backgroundColor: theme.palette.background.paper,
-      '&:hover': {
-        backgroundColor: theme.palette.background.paper,
-      },
-      borderTop: `1px solid ${borderColor}`,
-      borderBottom: `1px solid ${borderColor}`,
+      backgroundColor: theme.palette.background.paper
     },
   };
 
