@@ -33,6 +33,7 @@ import {
   GridMoreVertIcon,
   GridExpandMoreIcon,
   GridExpandLessIcon,
+  GridPinnedCell
 } from '../../components';
 import { GridColumnUnsortedIcon } from '../../components/columnHeaders/GridColumnUnsortedIcon';
 import { ErrorOverlay } from '../../components/ErrorOverlay';
@@ -76,6 +77,7 @@ const DEFAULT_GRID_SLOTS_COMPONENTS: GridSlotsComponent = {
   ColumnsPanel: GridColumnsPanel,
   Panel: GridPanel,
   Row: GridRow,
+  PinnedCell: GridPinnedCell,
 };
 
 export const useGridProcessedProps = (inProps: GridInputComponentProps) => {

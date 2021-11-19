@@ -14,6 +14,7 @@ import {
   GridMergedOptions,
 } from './models/gridOptions';
 import { GridRowIdGetter, GridRowModel, GridRowsProp } from './models/gridRows';
+import { GridRowProp } from './models/gridRows';
 import { GridColumnTypesRecord } from './models/colDef/gridColumnTypesRecord';
 import { GridSortModel } from './models/gridSortModel';
 import { GridFilterModel } from './models/gridFilterModel';
@@ -26,6 +27,7 @@ import { GridClasses } from './gridClasses';
 import { GridCallbackDetails } from './models/api/gridCallbackDetails';
 import { GridPinnedColumns } from './models/api/gridColumnPinningApi';
 import { GridEventListener, GridEvents } from './models/events';
+import { GridPinnedRowPosition } from "./models/gridPinnedRow";
 
 /**
  * The grid component react props before applying the default values.
@@ -417,4 +419,12 @@ interface GridComponentOtherProps extends CommonProps {
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
   sx?: SxProps<Theme>;
+  /**
+   * Pinned row data.
+   */
+  pinnedRow?: GridRowProp;
+  /**
+   * Pinned row position.
+   */
+  pinnedRowPosition?: GridPinnedRowPosition;
 }

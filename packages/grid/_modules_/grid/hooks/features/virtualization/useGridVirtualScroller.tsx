@@ -16,6 +16,7 @@ import { GridEventListener, GridEvents } from '../../../models/events';
 import { useGridApiEventHandler } from '../../utils/useGridApiEventHandler';
 import { clamp } from '../../../utils/utils';
 import { GridRenderContext } from '../../../models';
+import { GridPinnedRow } from '../../../components/GridPinnedRow';
 
 // Uses binary search to avoid looping through all possible positions
 export function getIndexFromScroll(
@@ -296,6 +297,64 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
     return rows;
   };
 
+  const getPinnedRow = (
+    params: {
+      renderContext: GridRenderContext | null;
+      minFirstColumn?: number;
+      maxLastColumn?: number;
+      availableSpace?: number | null;
+    } = { renderContext },
+  ) => {
+    const {
+      renderContext: nextRenderContext,
+      minFirstColumn = renderZoneMinColumnIndex,
+      maxLastColumn = renderZoneMaxColumnIndex,
+      availableSpace = containerWidth,
+    } = params;
+
+    if (!currentPage.range || !nextRenderContext || availableSpace == null) {
+      return null;
+    }
+
+    if (!rootProps.pinnedRow) {
+      return null;
+    }
+
+    const columnBuffer = !disableVirtualization ? rootProps.columnBuffer : 0;
+
+    const [firstColumnToRender, lastColumnToRender] = getRenderableIndexes({
+      firstIndex: nextRenderContext.firstColumnIndex,
+      lastIndex: nextRenderContext.lastColumnIndex,
+      minFirstIndex: minFirstColumn,
+      maxLastIndex: maxLastColumn,
+      buffer: columnBuffer,
+    });
+
+    const renderedColumns = visibleColumns.slice(firstColumnToRender, lastColumnToRender);
+
+    const style: React.CSSProperties = {};
+    if (!disableVirtualization) {
+      const left = columnsMeta.positions[firstColumnToRender];
+      style.transform = `translate3d(${left}px, 0px, 0px)`;
+    }
+
+    return (
+      <GridPinnedRow
+        row={rootProps.pinnedRow}
+        rowHeight={rowHeight}
+        cellTabIndex={cellTabIndex} // TODO move to inside the row
+        renderedColumns={renderedColumns}
+        visibleColumns={visibleColumns}
+        firstColumnToRender={firstColumnToRender}
+        lastColumnToRender={lastColumnToRender}
+        selected={false}
+        containerWidth={containerWidth}
+        style={style}
+        {...rootProps.componentsProps?.row}
+      />
+    );
+  };
+
   const needsHorizontalScrollbar = containerWidth && columnsMeta.totalWidth > containerWidth;
 
   const contentSize = React.useMemo(() => {
@@ -345,5 +404,6 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
     }),
     getContentProps: ({ style = {} } = {}) => ({ style: { ...style, ...contentSize } }),
     getRenderZoneProps: () => ({ ref: renderZoneRef }),
+    getPinnedRow
   };
 };

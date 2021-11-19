@@ -44,6 +44,7 @@ export const GridRootStyles = styled('div', {
     { [`& .${gridClasses.withBorder}`]: styles.withBorder },
     { [`& .${gridClasses.treeDataGroupingCell}`]: styles.treeDataGroupingCell },
     { [`& .${gridClasses.treeDataGroupingCellToggle}`]: styles.treeDataGroupingCellToggle },
+    { [`& .${gridClasses.pinnedRow}`]: styles.pinnedRow },
     styles.root,
   ],
 })(({ theme }) => {
@@ -300,6 +301,16 @@ export const GridRootStyles = styled('div', {
       flex: '0 0 28px',
       alignSelf: 'stretch',
       marginRight: theme.spacing(2),
+    },
+    [`& .${gridClasses.pinnedRow}`]: {
+      display: 'flex',
+      width: 'fit-content',
+      backgroundColor: theme.palette.background.paper,
+      '&:hover': {
+        backgroundColor: theme.palette.background.paper,
+      },
+      borderTop: `1px solid ${borderColor}`,
+      borderBottom: `1px solid ${borderColor}`,
     },
   };
 

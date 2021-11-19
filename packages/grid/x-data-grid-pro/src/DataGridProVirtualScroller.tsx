@@ -19,6 +19,7 @@ import {
   GridPinnedColumns,
   GridPinnedPosition,
 } from '../../_modules_/grid/models/api/gridColumnPinningApi';
+import { GridPinnedRowRenderer } from "../../_modules_";
 
 export const filterColumns = (pinnedColumns: GridPinnedColumns, columns: string[]) => {
   const filter = (newPinnedColumns: any[] | undefined, remaningColumns: string[]) => {
@@ -133,6 +134,7 @@ const DataGridProVirtualScroller = React.forwardRef<
     getContentProps,
     getRenderZoneProps,
     updateRenderZonePosition,
+    getPinnedRow
   } = useGridVirtualScroller({
     ref,
     renderZoneMinColumnIndex: leftPinnedColumns.length,
@@ -198,41 +200,43 @@ const DataGridProVirtualScroller = React.forwardRef<
 
   return (
     <GridVirtualScroller {...getRootProps(other)}>
-      <GridVirtualScrollerContent {...getContentProps({ style: contentStyle })}>
-        {leftRenderContext && (
-          <VirtualScrollerPinnedColumns
-            ref={leftColumns}
-            className={classes.leftPinnedColumns}
-            ownerState={{ side: GridPinnedPosition.left }}
-            style={pinnedColumnsStyle}
-          >
-            {getRows({
-              renderContext: leftRenderContext,
-              minFirstColumn: leftRenderContext.firstColumnIndex,
-              maxLastColumn: leftRenderContext.lastColumnIndex,
-              availableSpace: 0,
-            })}
-          </VirtualScrollerPinnedColumns>
-        )}
-        {rightRenderContext && (
-          <VirtualScrollerPinnedColumns
-            ref={rightColumns}
-            ownerState={{ side: GridPinnedPosition.right }}
-            className={classes.rightPinnedColumns}
-            style={pinnedColumnsStyle}
-          >
-            {getRows({
-              renderContext: rightRenderContext,
-              minFirstColumn: rightRenderContext.firstColumnIndex,
-              maxLastColumn: rightRenderContext.lastColumnIndex,
-              availableSpace: 0,
-            })}
-          </VirtualScrollerPinnedColumns>
-        )}
-        <GridVirtualScrollerRenderZone {...getRenderZoneProps()}>
-          {getRows({ renderContext })}
-        </GridVirtualScrollerRenderZone>
-      </GridVirtualScrollerContent>
+      <GridPinnedRowRenderer getPinnedRow={getPinnedRow}>
+        <GridVirtualScrollerContent {...getContentProps({ style: contentStyle })}>
+          {leftRenderContext && (
+            <VirtualScrollerPinnedColumns
+              ref={leftColumns}
+              className={classes.leftPinnedColumns}
+              ownerState={{ side: GridPinnedPosition.left }}
+              style={pinnedColumnsStyle}
+            >
+              {getRows({
+                renderContext: leftRenderContext,
+                minFirstColumn: leftRenderContext.firstColumnIndex,
+                maxLastColumn: leftRenderContext.lastColumnIndex,
+                availableSpace: 0,
+              })}
+            </VirtualScrollerPinnedColumns>
+          )}
+          {rightRenderContext && (
+            <VirtualScrollerPinnedColumns
+              ref={rightColumns}
+              ownerState={{ side: GridPinnedPosition.right }}
+              className={classes.rightPinnedColumns}
+              style={pinnedColumnsStyle}
+            >
+              {getRows({
+                renderContext: rightRenderContext,
+                minFirstColumn: rightRenderContext.firstColumnIndex,
+                maxLastColumn: rightRenderContext.lastColumnIndex,
+                availableSpace: 0,
+              })}
+            </VirtualScrollerPinnedColumns>
+          )}
+          <GridVirtualScrollerRenderZone {...getRenderZoneProps()}>
+            {getRows({ renderContext })}
+          </GridVirtualScrollerRenderZone>
+        </GridVirtualScrollerContent>
+      </GridPinnedRowRenderer>
     </GridVirtualScroller>
   );
 });
