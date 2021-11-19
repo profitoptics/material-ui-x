@@ -118,9 +118,7 @@ function GridPinnedRow(props: React.HTMLAttributes<HTMLDivElement> & GridPinnedR
       ? rootProps.showCellRightBorder
       : !removeLastBorderRight && rootProps.disableExtendRowFullWidth;
 
-    // TODO: PO: Check if cellParams can be removed
-    const cellParams = apiRef.current.getCellParams(0, column.field);
-    cellParams.value = row[column.field];
+    const cellParams = apiRef.current.getPinnedCellParams(row, column.field);
 
     const classNames: string[] = [];
 

@@ -31,7 +31,7 @@ export interface GridCellParams<V = any, R = any, F = V> {
   /**
    * The node of the row that the current cell belongs to.
    */
-  rowNode: GridRowTreeNodeConfig;
+  rowNode: GridRowTreeNodeConfig | null;
   /**
    * The column of the row that the current cell belongs to.
    */
