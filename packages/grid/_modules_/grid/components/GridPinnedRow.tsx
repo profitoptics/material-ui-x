@@ -134,7 +134,7 @@ function GridPinnedRow(props: React.HTMLAttributes<HTMLDivElement> & GridPinnedR
 
     let content: React.ReactNode = null;
 
-    if (column.renderCell) {
+    if (column.renderCell && column.type !== "actions") {
       content = column.renderCell({ ...cellParams, api: apiRef.current });
       // TODO move to GridCell
       classNames.push(
