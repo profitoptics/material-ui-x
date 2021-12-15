@@ -151,7 +151,7 @@ export function useGridParamsApi(apiRef: GridApiRef) {
             id,
             field,
             row,
-            rowNode: null,
+            rowNode: null as any,
             colDef,
             cellMode: "view",
             getValue: apiRef.current.getCellValue,

@@ -4,10 +4,7 @@ import { GridRowId } from '../../../models/gridRows';
 import { useGridApiContext } from '../../utils/useGridApiContext';
 import { useGridRootProps } from '../../utils/useGridRootProps';
 import { useGridSelector } from '../../utils/useGridSelector';
-import {
-  visibleGridColumnsSelector,
-  gridColumnsMetaSelector,
-} from '../columns/gridColumnsSelector';
+import { visibleGridColumnsSelector, gridColumnsMetaSelector } from '../columns/gridColumnsSelector';
 import { gridDensityRowHeightSelector } from '../density/densitySelector';
 import { gridFocusCellSelector, gridTabIndexCellSelector } from '../focus/gridFocusStateSelector';
 import { gridEditRowsStateSelector } from '../editRows/gridEditRowsSelector';
@@ -325,7 +322,7 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
     const [firstColumnToRender, lastColumnToRender] = getRenderableIndexes({
       firstIndex: nextRenderContext.firstColumnIndex,
       lastIndex: nextRenderContext.lastColumnIndex,
-      minFirstIndex: minFirstColumn,
+      minFirstIndex: 0, // TODO: PO: use minFirstColumn
       maxLastIndex: maxLastColumn,
       buffer: columnBuffer,
     });
