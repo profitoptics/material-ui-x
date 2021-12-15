@@ -2527,6 +2527,17 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
+"@mui/x-data-grid-pro@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid-pro/-/x-data-grid-pro-5.2.0.tgz#76899782c73428b5c07bb5b3c41ab25900d49e80"
+  integrity sha512-bX3IOkz+cQKmo9KUl+Ve1C3MRG/BJ5O3cyHIh6FoPr4V7XFJOikwBUDSw4E2T/J0DozqQM9aY5xRsIIqkzJsQg==
+  dependencies:
+    "@mui/utils" "^5.2.2"
+    "@mui/x-license-pro" "5.2.0"
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+    reselect "^4.1.5"
+
 "@mui/x-data-grid@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-4.0.0.tgz#e9e9c33a8b86e85872c48f30f4a8de72ee819153"

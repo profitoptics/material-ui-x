@@ -49,7 +49,7 @@
     "build:codesandbox": "yarn release:build",
     "release:version": "lerna version --exact --no-changelog --no-push --no-git-tag-version",
     "release:build": "cd packages/x-license-pro && yarn build && cd ../grid/x-data-grid-pro && yarn build && cd ../x-data-grid && yarn build && cd ../x-data-grid-generator && yarn build",
-    "release:publish": "lerna publish from-package --dist-tag latest --contents build",
+    "release:publish": "lerna publish from-package --dist-tag latest --contents build --registry=\"https://npm.pkg.github.com\"",
     "release:publish:dry-run": "lerna publish from-package --dist-tag latest --contents build --registry=\"http://localhost:4873/\""
   },
   "devDependencies": {

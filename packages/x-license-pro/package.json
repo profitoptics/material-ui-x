@@ -1,6 +1,7 @@
 {
   "name": "@mui/x-license-pro",
   "version": "5.2.0",
+  "private": true,
   "description": "MUI X License verification",
   "author": "MUI Team",
   "main": "build/cjs/index.js",
