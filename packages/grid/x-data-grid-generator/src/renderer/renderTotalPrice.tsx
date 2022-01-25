@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { alpha, createTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import { GridCellParams } from '@mui/x-data-grid';
+import { GridRenderCellParams } from '@mui/x-data-grid';
 
 const defaultTheme = createTheme();
 const useStyles = makeStyles(
@@ -47,6 +47,6 @@ const TotalPrice = React.memo(function TotalPrice(props: TotalPriceProps) {
   );
 });
 
-export function renderTotalPrice(params: GridCellParams) {
+export function renderTotalPrice(params: GridRenderCellParams) {
   return <TotalPrice value={params.value as any} />;
 }

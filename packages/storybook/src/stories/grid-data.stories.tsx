@@ -23,7 +23,15 @@ const GridDataSet = ({ nbRows, nbCols, ...other }: GridDatasetProps) => {
   const data = useData(nbRows, nbCols);
   return (
     <div className="grid-container">
-      <DataGridPro rows={data.rows} columns={data.columns} {...other} />
+      <DataGridPro rows={data.rows} columns={data.columns}
+                   pinnedRow={data.pinnedRow}
+                   pinnedRowPosition="bottom"
+                   initialState={{
+                     pinnedColumns: {
+                       left: ["id", "currencyPair"]
+                     }
+                   }}
+                   {...other} />
     </div>
   );
 };
