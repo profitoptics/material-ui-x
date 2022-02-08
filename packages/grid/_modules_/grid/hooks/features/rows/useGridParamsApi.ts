@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GridApiRef } from '../../../models/api/gridApiRef';
 import { GridParamsApi } from '../../../models/api/gridParamsApi';
-import { GridRowId } from '../../../models/gridRows';
+import { GridRowId, GridRowModel } from '../../../models/gridRows';
 import { GridCellParams, GridValueGetterParams } from '../../../models/params/gridCellParams';
 import { GridColumnHeaderParams } from '../../../models/params/gridColumnHeaderParams';
 import { GridRowParams } from '../../../models/params/gridRowParams';
@@ -163,6 +163,50 @@ export function useGridParamsApi(apiRef: GridApiRef) {
     [apiRef, getCellValueWithDeprecationWarning],
   );
 
+  const getPinnedCellParams = React.useCallback(
+    (row: GridRowModel, field: string) => {
+      const colDef = apiRef.current.getColumn(field);
+      const value = row[field];
+      const id = -1;
+
+      if (!row) {
+        throw new Error(`Pinned row data is null`);
+      }
+
+      // const cellFocus = gridFocusCellSelector(apiRef.current.state);
+      // const cellTabIndex = gridTabIndexCellSelector(apiRef.current.state);
+
+      // TODO: PO: Implement GridPinnedCellParams
+      const params: GridCellParams = {
+        id,
+        field,
+        row,
+        rowNode: null as any,
+        colDef,
+        cellMode: "view",
+        getValue: apiRef.current.getCellValue,
+        hasFocus: false,
+        // hasFocus: cellFocus !== null && cellFocus.field === field && cellFocus.id === id,
+        // tabIndex: cellTabIndex && cellTabIndex.field === field && cellTabIndex.id === id ? 0 : -1,
+        tabIndex: -1,
+        value,
+        formattedValue: value,
+      };
+      if (colDef.valueFormatter) {
+        params.formattedValue = colDef.valueFormatter({
+          id,
+          field: params.field,
+          value: params.value,
+          api: apiRef.current,
+        });
+      }
+      params.isEditable = colDef && apiRef.current.isCellEditable(params);
+
+      return params;
+    },
+    [apiRef],
+  );
+
   const getCellValue = React.useCallback(
     (id: GridRowId, field: string) => {
       const colDef = apiRef.current.getColumn(field);
@@ -222,6 +266,7 @@ export function useGridParamsApi(apiRef: GridApiRef) {
     {
       getCellValue,
       getCellParams,
+      getPinnedCellParams,
       getCellElement,
       getRowParams,
       getRowElement,

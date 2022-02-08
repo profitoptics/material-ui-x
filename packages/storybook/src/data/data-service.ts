@@ -7,9 +7,12 @@ export interface DataRowModel {
   [price: string]: number | string;
 }
 
+export interface PinnedRowModel extends Omit<DataRowModel, 'id'> {}
+
 export interface GridData {
   columns: GridColDef[];
   rows: DataRowModel[];
+  pinnedRow?: PinnedRowModel;
 }
 
 export function getData(rowLength: number, colLength: number): GridData {
@@ -27,6 +30,13 @@ export function getData(rowLength: number, colLength: number): GridData {
     data.push(model);
   }
 
+  const totalRow: PinnedRowModel = {
+    currencyPair: "XXX",
+  };
+  for (let j = 1; j <= pricesColLength; j += 1) {
+    totalRow[`price${j}M`] = `T${j}`; // randomPrice(0.7, 2);
+  }
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'id', type: 'number' },
     { field: 'currencyPair', headerName: 'Currency Pair' },
@@ -36,5 +46,5 @@ export function getData(rowLength: number, colLength: number): GridData {
     columns.push({ field: `price${j}M`, headerName: `${j}M`, type: 'number' }); // (y > 0 ? `${y}Y` : '') + `${j - y * 12}M`
   }
   columns.length = colLength; // we cut the array in case < 2;
-  return { columns, rows: data };
+  return { columns, rows: data, pinnedRow: totalRow };
 }

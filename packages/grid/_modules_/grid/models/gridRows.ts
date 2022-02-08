@@ -2,6 +2,8 @@ import type { GridKeyValue } from './colDef';
 
 export type GridRowsProp = Readonly<GridRowModel[]>;
 
+export type GridRowProp = Readonly<GridRowModel>;
+
 /**
  * @deprecated prefer GridRowModel.
  */

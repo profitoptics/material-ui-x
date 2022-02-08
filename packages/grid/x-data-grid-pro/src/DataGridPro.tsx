@@ -695,6 +695,14 @@ DataGridProRaw.propTypes = {
     right: PropTypes.arrayOf(PropTypes.string),
   }),
   /**
+   * Pinned row data.
+   */
+  pinnedRow: PropTypes.object,
+  /**
+   * Pinned row position.
+   */
+  pinnedRowPosition: PropTypes.oneOf(['bottom', 'top']),
+  /**
    * Number of extra rows to be rendered before/after the visible slice.
    * @default 3
    */

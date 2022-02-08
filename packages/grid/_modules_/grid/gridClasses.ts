@@ -429,4 +429,6 @@ export const gridClasses = generateUtilityClasses('MuiDataGrid', [
   'treeDataGroupingCellToggle',
   'groupingCriteriaCell',
   'groupingCriteriaCellToggle',
+  'pinnedRow',
+  'pinnedRowRenderer'
 ]);

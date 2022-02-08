@@ -122,4 +122,8 @@ export interface GridSlotsComponent extends GridIconSlotsComponent {
    * @default GridRow
    */
   Row: React.JSXElementConstructor<any>;
+  /**
+   * Component rendered for each pinned cell;
+   */
+  PinnedCell: React.JSXElementConstructor<any>;
 }

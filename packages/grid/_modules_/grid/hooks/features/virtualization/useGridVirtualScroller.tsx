@@ -3,10 +3,7 @@ import { useForkRef } from '@mui/material/utils';
 import { useGridApiContext } from '../../utils/useGridApiContext';
 import { useGridRootProps } from '../../utils/useGridRootProps';
 import { useGridSelector } from '../../utils/useGridSelector';
-import {
-  visibleGridColumnsSelector,
-  gridColumnsMetaSelector,
-} from '../columns/gridColumnsSelector';
+import { visibleGridColumnsSelector, gridColumnsMetaSelector } from '../columns/gridColumnsSelector';
 import { gridDensityRowHeightSelector } from '../density/densitySelector';
 import { gridFocusCellSelector, gridTabIndexCellSelector } from '../focus/gridFocusStateSelector';
 import { gridEditRowsStateSelector } from '../editRows/gridEditRowsSelector';
@@ -18,6 +15,7 @@ import { GridRenderContext } from '../../../models';
 import { selectedIdsLookupSelector } from '../selection/gridSelectionSelector';
 import { gridRowsMetaSelector } from '../rows/gridRowsMetaSelector';
 import { GridRowId, GridRowModel } from '../../../models/gridRows';
+import { GridPinnedRow } from '../../../components/GridPinnedRow';
 
 // Uses binary search to avoid looping through all possible positions
 export function getIndexFromScroll(
@@ -321,6 +319,64 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
     return rows;
   };
 
+  const getPinnedRow = (
+    params: {
+      renderContext: GridRenderContext | null;
+      minFirstColumn?: number;
+      maxLastColumn?: number;
+      availableSpace?: number | null;
+    } = { renderContext },
+  ) => {
+    const {
+      renderContext: nextRenderContext,
+      minFirstColumn = renderZoneMinColumnIndex,
+      maxLastColumn = renderZoneMaxColumnIndex,
+      availableSpace = containerWidth,
+    } = params;
+
+    if (!currentPage.range || !nextRenderContext || availableSpace == null) {
+      return null;
+    }
+
+    if (!rootProps.pinnedRow) {
+      return null;
+    }
+
+    const columnBuffer = !disableVirtualization ? rootProps.columnBuffer : 0;
+
+    const [firstColumnToRender, lastColumnToRender] = getRenderableIndexes({
+      firstIndex: nextRenderContext.firstColumnIndex,
+      lastIndex: nextRenderContext.lastColumnIndex,
+      minFirstIndex: 0, // TODO: PO: use minFirstColumn
+      maxLastIndex: maxLastColumn,
+      buffer: columnBuffer,
+    });
+
+    const renderedColumns = visibleColumns.slice(firstColumnToRender, lastColumnToRender);
+
+    const style: React.CSSProperties = {};
+    if (!disableVirtualization) {
+      const left = columnsMeta.positions[firstColumnToRender];
+      style.transform = `translate3d(${left}px, 0px, 0px)`;
+    }
+
+    return (
+      <GridPinnedRow
+        row={rootProps.pinnedRow}
+        rowHeight={rowHeight}
+        cellTabIndex={cellTabIndex} // TODO move to inside the row
+        renderedColumns={renderedColumns}
+        visibleColumns={visibleColumns}
+        firstColumnToRender={firstColumnToRender}
+        lastColumnToRender={lastColumnToRender}
+        selected={false}
+        containerWidth={containerWidth}
+        style={style}
+        {...rootProps.componentsProps?.row}
+      />
+    );
+  };
+
   const needsHorizontalScrollbar = containerWidth && columnsMeta.totalWidth > containerWidth;
 
   const contentSize = React.useMemo(() => {
@@ -377,5 +433,6 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
     }),
     getContentProps: ({ style = {} } = {}) => ({ style: { ...style, ...contentSize } }),
     getRenderZoneProps: () => ({ ref: renderZoneRef }),
+    getPinnedRow
   };
 };

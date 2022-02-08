@@ -19,3 +19,5 @@ export * from './GridRowCount';
 export * from './GridRow';
 export * from './GridSelectedRowCount';
 export * from './GridScrollArea';
+export * from './GridPinnedRow';
+export * from './GridPinnedRowRenderer';
