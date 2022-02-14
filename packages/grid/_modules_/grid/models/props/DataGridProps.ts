@@ -24,7 +24,6 @@ import { GridInputSelectionModel, GridSelectionModel } from '../gridSelectionMod
 import { GridInitialState } from '../gridState';
 import { GridSlotsComponentsProps } from '../gridSlotsComponentsProps';
 import { GridColumnVisibilityModel } from '../../hooks/features/columns/gridColumnsInterfaces';
-import { GridPinnedColumns } from '../api/gridColumnPinningApi';
 
 import { GridPinnedRowPosition } from "../gridPinnedRow";
 

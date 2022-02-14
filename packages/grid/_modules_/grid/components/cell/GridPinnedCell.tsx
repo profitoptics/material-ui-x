@@ -8,7 +8,7 @@ import { getDataGridUtilityClass } from '../../gridClasses';
 import { GridAlignment, GridCellValue, GridEvents } from '../../models';
 import { useGridApiContext } from '../../hooks/utils/useGridApiContext';
 import { useGridRootProps } from '../../hooks/utils/useGridRootProps';
-import { GridComponentProps } from '../../GridComponentProps';
+import { DataGridProcessedProps } from '../../models/props/DataGridProps';
 
 export interface GridPinnedCellProps {
   align: GridAlignment;
@@ -48,7 +48,7 @@ function doesSupportPreventScroll(): boolean {
 }
 
 type OwnerState = Pick<GridPinnedCellProps, 'align' | 'showRightBorder'> & {
-  classes?: GridComponentProps['classes'];
+  classes?: DataGridProcessedProps['classes'];
 };
 
 const useUtilityClasses = (ownerState: OwnerState) => {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import { alpha, styled, createTheme, makeStyles } from '@mui/material/styles';
-import { GridCellParams } from '@mui/x-data-grid';
+import { alpha, styled } from '@mui/material/styles';
 import { GridRenderCellParams } from '@mui/x-data-grid';
 
 const Value = styled('div')(({ theme }) => ({

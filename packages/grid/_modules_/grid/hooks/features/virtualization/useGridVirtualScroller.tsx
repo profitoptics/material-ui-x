@@ -329,7 +329,7 @@ export const useGridVirtualScroller = (props: UseGridVirtualScrollerProps) => {
   ) => {
     const {
       renderContext: nextRenderContext,
-      minFirstColumn = renderZoneMinColumnIndex,
+      // minFirstColumn = renderZoneMinColumnIndex,
       maxLastColumn = renderZoneMaxColumnIndex,
       availableSpace = containerWidth,
     } = params;

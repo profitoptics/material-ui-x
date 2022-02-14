@@ -9,7 +9,7 @@ import { GridRowModel } from '../models/gridRows';
 import { useGridApiContext } from '../hooks/utils/useGridApiContext';
 import { getDataGridUtilityClass, gridClasses } from '../gridClasses';
 import { useGridRootProps } from '../hooks/utils/useGridRootProps';
-import { GridComponentProps } from '../GridComponentProps';
+import { DataGridProcessedProps } from '../models/props/DataGridProps';
 import { GridStateColDef } from '../models/colDef/gridColDef';
 import { GridCellIdentifier } from '../hooks/features/focus/gridFocusState';
 import { gridColumnsMetaSelector } from '../hooks/features/columns/gridColumnsSelector';
@@ -30,7 +30,7 @@ export interface GridPinnedRowProps {
 }
 
 type OwnerState = Pick<GridPinnedRowProps, 'selected'> & {
-  classes?: GridComponentProps['classes'];
+  classes?: DataGridProcessedProps['classes'];
 };
 
 const useUtilityClasses = (ownerState: OwnerState) => {
@@ -57,7 +57,14 @@ const GridPinnedRowRoot = styled('div', {
   name: 'MuiDataGrid',
   slot: 'PinnedRow',
   overridesResolver: (props, styles) => styles.pinnedRow,
-})({});
+})(({ theme }) => ({
+  position: 'sticky',
+  bottom: 0,
+  borderTop: `1px solid ${theme.palette.divider}`,
+  zIndex: 1,
+}));
+
+
 
 function GridPinnedRow(props: React.HTMLAttributes<HTMLDivElement> & GridPinnedRowProps) {
   const {
@@ -93,11 +100,6 @@ function GridPinnedRow(props: React.HTMLAttributes<HTMLDivElement> & GridPinnedR
   const classes = useUtilityClasses(ownerState);
 
   const style = {
-    position: 'sticky',
-    bottom: 0,
-    maxHeight: rowHeight,
-    minHeight: rowHeight,
-    zIndex: 1,
     ...styleProp,
   } as React.CSSProperties;
   if (rootProps.pinnedRowPosition === 'top') {
