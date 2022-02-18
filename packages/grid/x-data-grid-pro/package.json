@@ -1,6 +1,6 @@
 {
   "name": "@profitoptics/x-data-grid-pro",
-  "version": "5.2.0-pinnedrow",
+  "version": "5.5.1-pinnedrow",
   "description": "The commercial edition of the data grid component (MUI X).",
   "author": "MUI Team",
   "main": "build/index-cjs.js",
@@ -37,8 +37,8 @@
     "directory": "packages/grid/x-data-grid-pro"
   },
   "dependencies": {
-    "@mui/utils": "^5.3.0",
-    "@mui/x-license-pro": "5.5.0",
+    "@mui/utils": "^5.4.1",
+    "@mui/x-license-pro": "5.5.1",
     "clsx": "^1.0.4",
     "prop-types": "^15.8.1",
     "reselect": "^4.1.5"
@@ -54,5 +54,5 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "gitHead": "b8a83a73494006bea8f4fcad348676342a1aa476"
+  "gitHead": "278512801756d785631ea0b74f7ef74dbf778b00"
 }
