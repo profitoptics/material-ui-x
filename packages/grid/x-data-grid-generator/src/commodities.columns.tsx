@@ -53,7 +53,7 @@ import {
 
 import { GridColDefGenerator } from './services/gridColDefGenerator';
 
-export const getCommodityColumns = (editable = false): GridColDefGenerator[] => [
+export const getCommodityColumns = (editable = false): any[] => [
   {
     field: 'id',
     generateData: randomId,
@@ -183,6 +183,7 @@ export const getCommodityColumns = (editable = false): GridColDefGenerator[] => 
     field: 'totalPrice',
     headerName: 'Total in USD',
     valueGetter: ({ row }) => row.feeRate + row.quantity * row.unitPrice,
+    renderCell: renderTotalPrice,
     type: 'number',
     width: 160,
   },
@@ -190,6 +191,7 @@ export const getCommodityColumns = (editable = false): GridColDefGenerator[] => 
     field: 'pnl',
     headerName: 'PnL',
     generateData: randomPnL,
+    renderCell: renderPnl,
     type: 'number',
     width: 140,
   },
