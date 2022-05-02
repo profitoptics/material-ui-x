@@ -4,6 +4,8 @@ export type GridValidRowModel = { [key: string]: any };
 
 export type GridRowsProp<R = any> = Readonly<GridRowModel<R>[]>;
 
+export type GridRowProp = Readonly<GridRowModel>;
+
 /**
  * @deprecated prefer GridRowModel.
  */

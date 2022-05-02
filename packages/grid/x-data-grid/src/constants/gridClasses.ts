@@ -406,6 +406,10 @@ export interface GridClasses {
    * Styles applied to the toggle of the grouping criteria cell
    */
   groupingCriteriaCellToggle: string;
+
+  pinnedRow: string;
+
+  pinnedRowRenderer: string;
 }
 
 export type GridClassKey = keyof GridClasses;
@@ -516,4 +520,6 @@ export const gridClasses = generateUtilityClasses<GridClassKey>('MuiDataGrid', [
   'treeDataGroupingCellToggle',
   'groupingCriteriaCell',
   'groupingCriteriaCellToggle',
+  'pinnedRow',
+  'pinnedRowRenderer',
 ]);

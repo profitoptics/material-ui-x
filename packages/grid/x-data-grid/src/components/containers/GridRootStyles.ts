@@ -55,6 +55,7 @@ export const GridRootStyles = styled('div', {
       [`& .${gridClasses['detailPanelToggleCell--expanded']}`]:
         styles['detailPanelToggleCell--expanded'],
     },
+    { [`& .${gridClasses.pinnedRow}`]: styles.pinnedRow },
     styles.root,
   ],
 })(({ theme }) => {
@@ -115,16 +116,16 @@ export const GridRootStyles = styled('div', {
         width: 'auto',
       },
     [`& .${gridClasses.columnHeader}:not(.${gridClasses['columnHeader--sorted']}) .${gridClasses.sortIcon}`]:
-      {
-        opacity: 0,
-        transition: theme.transitions.create(['opacity'], {
-          duration: theme.transitions.duration.shorter,
-        }),
-      },
+    {
+      opacity: 0,
+      transition: theme.transitions.create(['opacity'], {
+        duration: theme.transitions.duration.shorter,
+      }),
+    },
     [`& .${gridClasses.columnHeader}:not(.${gridClasses['columnHeader--sorted']}):hover .${gridClasses.sortIcon}`]:
-      {
-        opacity: 0.5,
-      },
+    {
+      opacity: 0.5,
+    },
     [`& .${gridClasses.columnHeaderTitleContainer}`]: {
       display: 'flex',
       alignItems: 'center',
@@ -148,9 +149,9 @@ export const GridRootStyles = styled('div', {
       justifyContent: 'center',
     },
     [`& .${gridClasses['columnHeader--alignRight']} .${gridClasses.columnHeaderDraggableContainer}, & .${gridClasses['columnHeader--alignRight']} .${gridClasses.columnHeaderTitleContainer}`]:
-      {
-        flexDirection: 'row-reverse',
-      },
+    {
+      flexDirection: 'row-reverse',
+    },
     [`& .${gridClasses['columnHeader--alignCenter']} .${gridClasses.menuIcon}, & .${gridClasses['columnHeader--alignRight']} .${gridClasses.menuIcon}`]:
       {
         marginRight: 'auto',
@@ -360,6 +361,11 @@ export const GridRootStyles = styled('div', {
       flex: '0 0 28px',
       alignSelf: 'stretch',
       marginRight: theme.spacing(2),
+    },
+    [`& .${gridClasses.pinnedRow}`]: {
+      display: 'flex',
+      width: 'fit-content',
+      backgroundColor: theme.palette.background.paper
     },
   };
 

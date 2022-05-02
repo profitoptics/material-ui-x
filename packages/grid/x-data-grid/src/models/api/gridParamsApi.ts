@@ -1,5 +1,5 @@
-import { GridValidRowModel, GridRowId } from '../gridRows';
 import { GridCellParams } from '../params/gridCellParams';
+import { GridRowId, GridValidRowModel, GridRowModel } from '../gridRows';
 import { GridColumnHeaderParams } from '../params/gridColumnHeaderParams';
 import { GridRowParams } from '../params/gridRowParams';
 
@@ -29,6 +29,7 @@ export interface GridParamsApi {
     id: GridRowId,
     field: string,
   ) => GridCellParams<R, V, F>;
+  getPinnedCellParams: (row: GridRowModel, field: string) => GridCellParams;
   /**
    * Gets the [[GridRowParams]] object that is passed as argument in events.
    * @param {GridRowId} id The id of the row.

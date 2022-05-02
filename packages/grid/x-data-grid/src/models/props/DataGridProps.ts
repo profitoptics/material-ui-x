@@ -8,7 +8,7 @@ import { GridFeatureMode } from '../gridFeatureMode';
 import { Logger } from '../logger';
 import { GridSortDirection, GridSortModel } from '../gridSortModel';
 import { GridSlotsComponent } from '../gridSlotsComponent';
-import { GridRowIdGetter, GridRowsProp, GridValidRowModel } from '../gridRows';
+import { GridRowIdGetter, GridRowsProp, GridValidRowModel, GridRowProp } from '../gridRows';
 import { GridEventListener, GridEvents } from '../events';
 import { GridCallbackDetails, GridLocaleText } from '../api';
 import { GridApiCommunity } from '../api/gridApiCommunity';
@@ -29,6 +29,8 @@ import { GridInputSelectionModel, GridSelectionModel } from '../gridSelectionMod
 import { GridInitialStateCommunity } from '../gridStateCommunity';
 import { GridSlotsComponentsProps } from '../gridSlotsComponentsProps';
 import { GridColumnVisibilityModel } from '../../hooks/features/columns/gridColumnsInterfaces';
+
+import { GridPinnedRowPosition } from '../gridPinnedRow';
 
 export interface GridExperimentalFeatures {
   /**
@@ -726,4 +728,10 @@ export interface DataGridPropsWithoutDefaultValue<R extends GridValidRowModel = 
    * @param {any} error The error thrown.
    */
   onProcessRowUpdateError?: (error: any) => void;
+
+  pinnedRow?: GridRowProp;
+  /**
+   * Pinned row position.
+   */
+  pinnedRowPosition?: GridPinnedRowPosition;
 }

@@ -3,3 +3,6 @@ export * from './GridEditInputCell';
 export * from './GridEditSingleSelectCell';
 export * from './GridActionsCell';
 export * from './GridActionsCellItem';
+// export * from './GridTreeDataGroupingCell';
+// export * from './GridDetailPanelToggleCell';
+export * from './GridPinnedCell';

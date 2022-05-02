@@ -40,6 +40,7 @@ import {
   GridRemoveIcon,
   GridDragIcon,
   GridColumnHeaderFilterIconButton,
+  GridPinnedCell,
 } from '../components';
 import { GridColumnUnsortedIcon } from '../components/columnHeaders/GridColumnUnsortedIcon';
 import { ErrorOverlay } from '../components/ErrorOverlay';
@@ -100,4 +101,5 @@ export const DATA_GRID_DEFAULT_SLOTS_COMPONENTS: GridSlotsComponent = {
   ColumnsPanel: GridColumnsPanel,
   Panel: GridPanel,
   Row: GridRow,
+  PinnedCell: GridPinnedCell,
 };

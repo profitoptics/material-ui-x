@@ -31,6 +31,7 @@ import {
   gridDetailPanelExpandedRowsHeightCacheSelector,
   gridDetailPanelExpandedRowIdsSelector,
 } from '../hooks/features/detailPanel';
+import { GridPinnedRowRenderer } from '../../../x-data-grid/src/components/GridPinnedRowRenderer';
 
 export const filterColumns = (pinnedColumns: GridPinnedColumns, columns: string[]) => {
   if (!Array.isArray(pinnedColumns.left) && !Array.isArray(pinnedColumns.right)) {
@@ -192,6 +193,7 @@ const DataGridProVirtualScroller = React.forwardRef<
     getContentProps,
     getRenderZoneProps,
     updateRenderZonePosition,
+    getPinnedRow,
   } = useGridVirtualScroller({
     ref,
     renderZoneMinColumnIndex: leftPinnedColumns.length,
@@ -279,46 +281,48 @@ const DataGridProVirtualScroller = React.forwardRef<
 
   return (
     <GridVirtualScroller {...getRootProps(other)}>
-      <GridVirtualScrollerContent {...contentProps}>
-        {leftRenderContext && (
-          <VirtualScrollerPinnedColumns
-            ref={leftColumns}
-            className={classes.leftPinnedColumns}
-            ownerState={{ side: GridPinnedPosition.left }}
-            style={pinnedColumnsStyle}
-          >
-            {getRows({
-              renderContext: leftRenderContext,
-              minFirstColumn: leftRenderContext.firstColumnIndex,
-              maxLastColumn: leftRenderContext.lastColumnIndex,
-              availableSpace: 0,
-            })}
-          </VirtualScrollerPinnedColumns>
-        )}
-        <GridVirtualScrollerRenderZone {...getRenderZoneProps()}>
-          {getRows({ renderContext })}
-        </GridVirtualScrollerRenderZone>
-        {rightRenderContext && (
-          <VirtualScrollerPinnedColumns
-            ref={rightColumns}
-            ownerState={{ side: GridPinnedPosition.right }}
-            className={classes.rightPinnedColumns}
-            style={pinnedColumnsStyle}
-          >
-            {getRows({
-              renderContext: rightRenderContext,
-              minFirstColumn: rightRenderContext.firstColumnIndex,
-              maxLastColumn: rightRenderContext.lastColumnIndex,
-              availableSpace: 0,
-            })}
-          </VirtualScrollerPinnedColumns>
-        )}
-        {detailPanels.length > 0 && (
-          <VirtualScrollerDetailPanels className={classes.detailPanels}>
-            {detailPanels}
-          </VirtualScrollerDetailPanels>
-        )}
-      </GridVirtualScrollerContent>
+      <GridPinnedRowRenderer getPinnedRow={getPinnedRow}>
+        <GridVirtualScrollerContent {...contentProps}>
+          {leftRenderContext && (
+            <VirtualScrollerPinnedColumns
+              ref={leftColumns}
+              className={classes.leftPinnedColumns}
+              ownerState={{ side: GridPinnedPosition.left }}
+              style={pinnedColumnsStyle}
+            >
+              {getRows({
+                renderContext: leftRenderContext,
+                minFirstColumn: leftRenderContext.firstColumnIndex,
+                maxLastColumn: leftRenderContext.lastColumnIndex,
+                availableSpace: 0,
+              })}
+            </VirtualScrollerPinnedColumns>
+          )}
+          <GridVirtualScrollerRenderZone {...getRenderZoneProps()}>
+            {getRows({ renderContext })}
+          </GridVirtualScrollerRenderZone>
+          {rightRenderContext && (
+            <VirtualScrollerPinnedColumns
+              ref={rightColumns}
+              ownerState={{ side: GridPinnedPosition.right }}
+              className={classes.rightPinnedColumns}
+              style={pinnedColumnsStyle}
+            >
+              {getRows({
+                renderContext: rightRenderContext,
+                minFirstColumn: rightRenderContext.firstColumnIndex,
+                maxLastColumn: rightRenderContext.lastColumnIndex,
+                availableSpace: 0,
+              })}
+            </VirtualScrollerPinnedColumns>
+          )}
+          {detailPanels.length > 0 && (
+            <VirtualScrollerDetailPanels className={classes.detailPanels}>
+              {detailPanels}
+            </VirtualScrollerDetailPanels>
+          )}
+        </GridVirtualScrollerContent>
+      </GridPinnedRowRenderer>
     </GridVirtualScroller>
   );
 });
